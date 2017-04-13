@@ -24,31 +24,26 @@ def regular_chat():
 # ====================================================
 
 # Carousell
-# get text from href : http://stackoverflow.com/questions/35416575/get-the-href-text-of-a-link-that-has-a-certain-class-attribute-using-beautifulso
 
-#def Caro_grab():
-#	url = 'https://tw.carousell.com/?hl=en'
-#	opener=urllib.request.build_opener()
-#	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-#	page = opener.open(url)
-#	soup = BeautifulSoup(page,"html.parser")
-#	content='' 
-#	# limit number of query response here, since there may be limit in msg length 
-#	for k in soup.find_all('a', attrs={'class': 'pdt-card-thumbnail'})[:3]:
-#		if k.find('img'):
-#			print ('name:' , k.find('img')['alt'])
-#			print ('image:' , k.find('img')['src'])
-#			print ('\n')
-#			#link = k.find('img')['src']#[:15]
-#			content += k.find('img')['alt'] + "\n" + k.find('img')['src'] + "\n\n"
-#			#content +=  k.find('img')['alt'] + "\n\n"
-#			#content += str(link) + "\n"
-#
-#		else:
-#			pass
-#	#print (content)
-#	print (type(content))
-#	return str(content)
+
+def Caro_grab_(query):
+	url = 'https://tw.carousell.com/search/products/?query={}'
+	url=url.format(query)
+	opener=urllib.request.build_opener()
+	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+	page = opener.open(url)
+	soup = BeautifulSoup(page,"html.parser")
+	anchors = soup.find_all('a', {'class': 'pdt-card-thumbnail', 'href': True})
+	content='' 
+	url_refix = 'https://tw.carousell.com/p/'
+	for anchor in anchors:
+		for k in re.findall('\d+', anchor['href']):
+			if len(k) > 3:
+				url = url_refix + k 
+				content += anchor.find('img')['alt'] + "\n" + str(url) + "\n\n"
+
+	print (content)
+	return content[:600]
 
 
 def Caro_grab():

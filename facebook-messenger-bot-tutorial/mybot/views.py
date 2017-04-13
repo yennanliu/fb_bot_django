@@ -17,6 +17,11 @@ def post_facebook_message(fbid, recevied_message):
 
     fb = FbMessageApi(fbid)
 
+    if "!caro" in recevied_message:
+        content = Caro_grab_(recevied_message.split(' ')[1])
+        fb.text_message(content)
+        return 0
+
     if recevied_message == "Just chat":
         content = regular_chat()
         fb.text_message(content)
