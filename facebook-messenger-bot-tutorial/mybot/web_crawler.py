@@ -71,7 +71,7 @@ def Caro_grab():
 				content += anchor.find('img')['alt'] + "\n" + str(url) + "\n\n"
 
 	print (content)
-	return content
+	return content[:600]
 
 
 
