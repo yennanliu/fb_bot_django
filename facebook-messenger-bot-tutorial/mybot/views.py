@@ -64,6 +64,31 @@ def post_facebook_message(fbid, recevied_message):
         fb.text_message(content)
         return 0
 
+    if recevied_message == "ask":
+        data = [
+            {
+                "type": "postback",
+                "title": "Q1",
+                "payload": "Q1"
+            },
+            {
+                "type": "postback",
+                "title": "Q2",
+                "payload": "Q2"
+            },
+            {
+                "type": "postback",
+                "title": "正妹",
+                "payload": "正妹"
+            }
+        ]
+        fb.template_message(
+            title="選擇服務",
+            image_url="https://i.imgur.com/xQF5dZT.jpg",
+            subtitle="請選擇",
+            data=data)
+        return 0
+
     if recevied_message == "開始玩":
         data = [
             {
