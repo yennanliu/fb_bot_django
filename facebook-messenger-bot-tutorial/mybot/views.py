@@ -200,7 +200,7 @@ def post_facebook_message(fbid, recevied_message):
         }, 
         {
             "type": "web_url",
-            "url": "https://github.com/yennanliu/Django_fb_bot",
+            "url": "https://github.com/yennanliu/fb_bot_django",
             "title": "Contact"
         }
         
