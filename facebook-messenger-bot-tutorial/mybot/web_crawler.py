@@ -22,6 +22,21 @@ def regular_chat():
 	print (response)
 	return response
 
+def general_intro():
+	sample_response = """
+######## 
+
+for Carousell product survey, please type "!caro prosuctname" \n
+for asking, please type "ask" \n
+for main application, please type anything \n
+have fun :) \n
+
+########
+
+	"""
+	print (sample_response)
+	return sample_response
+
 # ====================================================
 
 # Carousell

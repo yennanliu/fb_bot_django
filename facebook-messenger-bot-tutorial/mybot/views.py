@@ -17,6 +17,11 @@ def post_facebook_message(fbid, recevied_message):
 
     fb = FbMessageApi(fbid)
 
+    if  recevied_message == 'help':
+        content = general_intro()
+        fb.text_message(content)
+        return 0
+
     if "!caro" in recevied_message.lower():
         content = Caro_grab_(recevied_message.split(' ')[1])
         fb.text_message(content)
