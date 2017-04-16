@@ -3,6 +3,10 @@ import requests, re
 import pandas as pd 
 import urllib 
 import random
+import os
+import sys
+import subprocess
+import json
 
 
 
@@ -11,7 +15,7 @@ import random
 # Carousell 
 # ptt 
 # airbnb
-# movie / music 
+# spotify
 
 
 # ====================================================
@@ -36,6 +40,41 @@ have fun :) \n
 	"""
 	print (sample_response)
 	return sample_response
+
+
+# ====================================================
+
+# Spotify 
+
+
+
+def spotify_album_(artist):
+	# make sure artist name feat spotify API query form 
+	artist = artist.replace (" ", "+")
+	print (artist)
+	url="https://api.spotify.com/v1/search?q=${}&type=artist".format(artist)
+
+	command = """ 
+
+	API_ARTIST_URL=$(curl -s "{}" | jq -r '.artists.items[0].href') 
+	curl -s "$API_ARTIST_URL/top-tracks?country=US" > spotify_data.json
+
+	""".format(url)
+	print (command)
+	os.system(command)
+	album = ''
+	try:
+		data_spotify = json.loads(open('spotify_data.json').read())
+		for k in range(0,len(data_spotify['tracks'])): 
+		    print (data_spotify['tracks'][k]['name'])
+		    album += data_spotify['tracks'][k]['name']
+	except:
+		album = 'no feat artist, return null data'
+		print (album)
+	return album
+	
+
+
 
 # ====================================================
 
@@ -74,11 +113,7 @@ def Caro_grab():
 	for anchor in anchors:
 		for k in re.findall('\d+', anchor['href']):
 			if len(k) > 3:
-				#print (anchor.find('img')['alt'])
-				#print (url_refix + k)
 				url = url_refix + k 
-				#print (url)
-				#print ('\n')
 				content += anchor.find('img')['alt'] + "\n" + str(url) + "\n\n"
 
 	print (content)
@@ -128,20 +163,16 @@ def ptt_beauty():
 	content=''
 	# limit number of query response here, since there may be limit in msg length 
 	for k in soup.find_all('a',href=True)[:15]:
-    #if 'Beauty' in k['href']:
+
 	    try:
 	    	if len(k['href']) < 30:
 	    		pass
 	    	else:
 	            print ("https://www.ptt.cc/"+ k['href'], k.text)
 	            content +=  k.text + "\n" + 'https://www.ptt.cc%s'%(k['href']) + "\n\n"
-	            #content += 'Beauty/M.1423752558.A.849.html' + "\n\n" #+ 'https://www.ptt.cc/'+ k['href'] + "\n\n" 
-	            #content += k.text + "\n\n"
-	            #content = "https://www.ptt.cc/bbs/Beauty/M.1491126397.A.79A.html"
 	    except:
 	        pass
-	#content = []
-	#content = "this is content \n 123 \n 456 "
+
 	print ('==================')
 	print (content)
 	return content
@@ -150,8 +181,8 @@ def ptt_beauty():
 
 # ====================================================
 
-#if __name__ == "__main__":
-#	pass
+if __name__ == "__main__":
+	spotify_album_('pete rock')
 	#Caro_grab()
 	#regular_chat()
 	#ptt_beauty()
