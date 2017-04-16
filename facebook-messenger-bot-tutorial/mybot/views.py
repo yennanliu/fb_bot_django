@@ -22,6 +22,14 @@ def post_facebook_message(fbid, recevied_message):
         fb.text_message(content)
         return 0
 
+
+    if "!spotify" in recevied_message.lower():
+        recevied_message = recevied_message.split(' ')[1:]
+        msg = '+'.join(recevied_message)
+        content = spotify_album(msg)
+        fb.text_message(content)
+        return 0
+
     if "!caro" in recevied_message.lower():
         content = Caro_grab_(recevied_message.split(' ')[1])
         fb.text_message(content)

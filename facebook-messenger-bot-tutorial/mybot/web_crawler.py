@@ -48,7 +48,7 @@ have fun :) \n
 
 
 
-def spotify_album_(artist):
+def spotify_album(artist):
 	# make sure artist name feat spotify API query form 
 	artist = artist.replace (" ", "+")
 	print (artist)
@@ -71,6 +71,8 @@ def spotify_album_(artist):
 	except:
 		album = 'no feat artist, return null data'
 		print (album)
+	# remove intermediate json 	
+	os.system('rm spotify_data.json')
 	return album
 	
 
@@ -182,7 +184,7 @@ def ptt_beauty():
 # ====================================================
 
 if __name__ == "__main__":
-	spotify_album_('pete rock')
+	spotify_album('pete rock')
 	#Caro_grab()
 	#regular_chat()
 	#ptt_beauty()
