@@ -67,7 +67,7 @@ def spotify_album(artist):
 		data_spotify = json.loads(open('spotify_data.json').read())
 		for k in range(0,len(data_spotify['tracks'])): 
 		    print (data_spotify['tracks'][k]['name'])
-		    album += data_spotify['tracks'][k]['name']
+		    album += data_spotify['tracks'][k]['name'] + "\n\n"
 	except:
 		album = 'no feat artist, return null data'
 		print (album)

@@ -102,7 +102,7 @@ def post_facebook_message(fbid, recevied_message):
             data=data)
         return 0
 
-    if recevied_message == "開始玩":
+    if recevied_message == "START PLAYING":
         data = [
             {
                 "type": "postback",
@@ -203,8 +203,8 @@ def post_facebook_message(fbid, recevied_message):
     data = [
            {
             "type": "postback",
-            "title": "開始玩",
-            "payload": "開始玩"
+            "title": "START PLAYING",
+            "payload": "START PLAYING"
         },
         {
            "type": "postback",
